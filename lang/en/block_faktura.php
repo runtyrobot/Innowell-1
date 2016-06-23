@@ -10,17 +10,14 @@
 /*----------------------------------------------------------
     Content Variables
 ----------------------------------------------------------*/
-
+$string['faktura_block_more'] = "Se Flere";
 
 /*----------------------------------------------------------
     Block Config Variables
-    - Virker ikke - fix
 ----------------------------------------------------------*/
-$string['blocksettings'] = 'Bar';
-$string['blockstring']  = 'Foo';
 
 /*----------------------------------------------------------
     Block Variables
 ----------------------------------------------------------*/
-$string['faktura_block_title']  = 'Innowell - Faktura og Betaling';
-$string['pluginname']  = 'Innowell - Faktura og Betaling'; // Required
+$string['faktura_block_title']  = 'Innowell - Betalingsoversigt';
+$string['pluginname']  = 'Innowell - Betalingsoversigt'; // Required
