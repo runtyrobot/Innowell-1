@@ -47,8 +47,11 @@ class block_faktura extends block_base {
             $this->content->text        .= html_writer::start_tag('ul');
             foreach ($payment as $p) {
                 $this->content->text    .= html_writer::start_tag('li');
-                $this->content->text    .= date('d. M Y', $p->pay_date);
-                $this->content->text    .= $p->pay_paid;
+                if ($p->pay_paid) {
+                    $url                 = new moodle_url('/blocks/faktura/viewpdf.php', array('pay_id' => $p->id, 'pay_fname' => $USER->firstname, 'pay_lname' => $USER->lastname));
+                    $this->content->text.= html_writer::link($url, "Faktura " . $p->id . " ",  array('target' => '_blank'));
+                } else $this->content->text    .= "Faktura " . $p->id . " ";
+                $this->content->text    .= "(" . date('d. M Y', $p->pay_date) . ")";
                 $this->content->text    .= html_writer::end_tag('li');
             }
             $this->content->text        .= html_writer::end_tag('ul');

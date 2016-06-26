@@ -73,7 +73,7 @@ function generate_signups($n = 3) {
 function generate_payment() {
     GLOBAL $DB;
 
-    // Need arbitrary Unix Timestamp - Let's take today for all.
+    // Need arbitrary Unix Timestamp - Let's take today.
     $date = new DateTime();
 
     // Need Signups to check how many payments we split over and which course
@@ -85,7 +85,8 @@ function generate_payment() {
             for ($i = 0; $i < $term->pay_terms; $i++) {
 
                 $pay->pay_method    = 1;
-                $pay->pay_date      = $date->modify('+' . $i . ' month'); // Random unix timestamp between July 1. and August 1. 2016
+                $date->modify('+1 month'); // Add 1 Month to last date
+                $pay->pay_date      = $date->getTimestamp(); // Unix Timestamp
                 $pay->pay_paid      = rand(0, 1); // True/false
 
                 $pay->key_signup    = $term->id;
