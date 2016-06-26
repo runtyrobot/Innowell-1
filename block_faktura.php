@@ -30,7 +30,7 @@ class block_faktura extends block_base {
         }
 
         $this->content         =  new stdClass;
-        $this->content->text   = 'Hello World';
+        $this->content->text   = 'Hello ' . $USER->id;
         $this->content->footer = '';
 
         return $this->content;
