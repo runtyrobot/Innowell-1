@@ -52,16 +52,23 @@ function generate_course($n = 10) {
  * @param int $n
  */
 function generate_signups($n = 3) {
-    GLOBAL $DB, $USER;
+    GLOBAL $DB;
 
-    for ($i = 0; $i < $n; $i++) {
+    // Get all available users
+    $user = $DB->get_records('user');
 
-        $signup             = new stdClass();
-        $signup->pay_terms  = $i+1; // Demonstrates multiple cases
-        $signup->key_course = $i + 1; // ID 0 isn't possible - so let's get the next one.
-        $signup->key_user   = $USER->id;
+    // Create three course signups for each user
+    foreach ($user as $u) {
+        if ($u->id > 1) {
+            for ($i = 0; $i < $n; $i++) {
+                $signup             = new stdClass();
+                $signup->pay_terms  = $i+1; // Demonstrates multiple cases
+                $signup->key_course = $i + 1; // ID 0 isn't possible - so let's get the next one.
+                $signup->key_user   = $u->id;
 
-        $DB->insert_record('user_signup', $signup, false);
+                $DB->insert_record('user_signup', $signup, false);
+            }
+        }
     }
 
 }
