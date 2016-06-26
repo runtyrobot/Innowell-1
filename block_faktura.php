@@ -1,13 +1,12 @@
 <?php
 
-/*------------------------------------------------------------
-    Innowell Faktura-block for Moodle
-    by Theis Thompson - theisthompson@gmail.com
-
-    Inner Class Structure:
-    - Init
-    - Get Content
-------------------------------------------------------------*/
+/**
+ * Faktura Block
+ * @package block_faktura
+ * @copyright none
+ * @author Theis Thompson <theisthompson@gmail.com>
+ * @license DBID
+ */
 
 defined('MOODLE_INTERNAL') || die();
 
