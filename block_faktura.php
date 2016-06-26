@@ -123,9 +123,9 @@ class block_faktura extends block_base {
                 $user = $DB->get_records('user', array('id' => $s->key_user));
 
                 foreach ($user as $u) {
-                    $this->content->text    .= html_writer::start_tag('h5');
+                    $this->content->text    .= html_writer::start_tag('h6');
                     $this->content->text    .= $u->id . " - " . $u->firstname . " " . $u->lastname;
-                    $this->content->text    .= html_writer::end_tag('h5');
+                    $this->content->text    .= html_writer::end_tag('h6');
 
                     $payment = $DB->get_records('user_payment', array('key_signup' => $s->id));
 
