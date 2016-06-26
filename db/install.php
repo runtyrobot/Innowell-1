@@ -87,7 +87,12 @@ function generate_payment() {
                 $pay->pay_method    = 1;
                 $date->modify('+1 month'); // Add 1 Month to last date
                 $pay->pay_date      = $date->getTimestamp(); // Unix Timestamp
-                $pay->pay_paid      = rand(0, 1); // True/false
+                $pay->pay_paid      = 1; //
+
+                // Let's set the last payment to not paid - just as showcase.
+                if ($i == $term->pay_terms - 1) {
+                    $pay->pay_paid  = 0;
+                }
 
                 $pay->key_signup    = $term->id;
 
