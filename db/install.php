@@ -21,6 +21,9 @@ function  xmldb_block_faktura_install() {
         // Generate Signups
         generate_signups();
 
+        // Generate Payments
+        generate_payment();
+
     }
 
 }
@@ -44,14 +47,17 @@ function generate_course($n = 10) {
 }
 
 
-
+/**
+ * Generate Signups for the user currently logged in
+ * @param int $n
+ */
 function generate_signups($n = 3) {
     GLOBAL $DB, $USER;
 
     for ($i = 0; $i < $n; $i++) {
 
         $signup             = new stdClass();
-        $signup->pay_terms  = $i; // Demonstrates multiple cases
+        $signup->pay_terms  = $i+1; // Demonstrates multiple cases
         $signup->key_course = $i + 1; // ID 0 isn't possible - so let's get the next one.
         $signup->key_user   = $USER->id;
 
@@ -60,18 +66,32 @@ function generate_signups($n = 3) {
 
 }
 
+/**
+ * Generate Payment
+ * - Generates payments matching the signups for the user
+ */
 function generate_payment() {
     GLOBAL $DB, $USER;
 
+    // Need arbitrary Unix Timestamp - Let's take today for all.
+    $date = new DateTime();
+
+    // Need Signups to check how many payments we split over
+    // And which
     $terms = $DB->get_records('user_signup');
 
     foreach ($terms as $term) {
+        $pay = new stdClass();
         if ($term->pay_terms > 0) {
             for ($i = 0; $i < $term->pay_terms; $i++) {
-                
-            }
-        } else {
+                $pay->pay_method    = 1;
+                $pay->pay_date      = $date->getTimestamp();
+                $pay->pay_paid      = rand(0, 1); // True/false
 
+                $pay->key_signup    = $term->id;
+
+                $DB->insert_record('user_payment', $pay, false);
+            }
         }
     }
 
