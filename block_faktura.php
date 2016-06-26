@@ -28,9 +28,9 @@ class block_faktura extends block_base {
             return $this->content;
         }
 
-        $this->content         =  new stdClass;
-        $this->content->text   = 'Hello ' . $USER->id . $USER->email;
-        $this->content->footer = '';
+        $this->content          =  new stdClass;
+        $this->content->text    = 'Foo';
+        $this->content->footer  = '';
 
         return $this->content;
     }
