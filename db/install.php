@@ -68,24 +68,24 @@ function generate_signups($n = 3) {
 
 /**
  * Generate Payment
- * - Generates payments matching the signups for the user
+ * - Generates payments matching the signups for the user who's currently logged in
  */
 function generate_payment() {
-    GLOBAL $DB, $USER;
+    GLOBAL $DB;
 
     // Need arbitrary Unix Timestamp - Let's take today for all.
     $date = new DateTime();
 
-    // Need Signups to check how many payments we split over
-    // And which
+    // Need Signups to check how many payments we split over and which course
     $terms = $DB->get_records('user_signup');
 
     foreach ($terms as $term) {
         $pay = new stdClass();
         if ($term->pay_terms > 0) {
             for ($i = 0; $i < $term->pay_terms; $i++) {
+
                 $pay->pay_method    = 1;
-                $pay->pay_date      = $date->getTimestamp();
+                $pay->pay_date      = $date->modify('+' . $i . ' month'); // Random unix timestamp between July 1. and August 1. 2016
                 $pay->pay_paid      = rand(0, 1); // True/false
 
                 $pay->key_signup    = $term->id;
